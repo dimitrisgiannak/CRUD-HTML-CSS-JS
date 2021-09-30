@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Assignments
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+
+    .navbar {
+      padding-left: 300px;
+      width: 100%;
+      height: 105px;
+      background-color: black;
+    }
+
+    .container {
+      font-weight: bolder;
+      position: relative;
+    }
+
+    .container1 {
+      width: 32%;
+      position: absolute;
+      padding-left: 20em;
+    }
+
+    .container2 {
+      width: 55%;
+      float: right;
+      padding-right: 5em;
+      padding-left: 5em;
+      margin-right: 10em;
+      padding-top: 26px;
+    }
+
+    #add-button {
+      font-weight: bold;
+      color:black;
+      background-color: #00bc95;
+    }
+  </style>
+
+
+</head>
+
+<body>
+  <!-- ADD NAVIGATION BAR -->
+  <nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="home.html" style = "color:red">PVDG</a>
+      ><a class="navbar-brand" href="admin.html" style = "color:red">Admin panel</a>
+    </div>
+  </nav>
+  <!-- ADD H2 TITLE -->
+  <div class="container">
+    <h2>DETAILS</h2>
+  </div>
+  
+  <!-- ADD ASSIGNMENT FORM -->
+  <div class="container1">
+    <h2></h2>
+    <form id="form">
+      <div class="form-group">
+        <label for="asgn_title">Assignment title:</label>
+        <input type="text" class="form-control" id="asgn_title" placeholder="Enter assignment title" name="asgn_title">
+      </div>
+      <div class="form-group">
+        <label for="asgn_descr">Assignment description:</label>
+        <input type="text" class="form-control" id="asgn_descr" placeholder="Enter assignment description" name="asgn_descr">
+      </div>
+      <div class="form-group">
+        <label for="asgn_tot_mark">Assignment total mark:</label>
+        <input type="text" class="form-control" id="asgn_tot_mark" placeholder="Enter assignment total mark" name="asgn_tot_mark" value="">
+      </div>
+      <div class="form-group">
+        <label for="sub_date">Date of submission:</label>
+        <input type="date" class="form-control" id="sub_date" name="sub_date">
+      </div>
+    </form>
+    <button class="btn btn-primary " type="submit" id="add-button">Add Assignment</button>
+  </div>
+  <br>
+  
+  <!-- ADD ASSIGNMENT LIST -->
+  <div class="container2">
+    <table class="table table-bordered" id="table">
+      <thead id="head">
+        <tr>
+          <th>Assignment title</th>
+          <th>Assignment description</th>
+          <th>Assignment total mark</th>
+          <th>Submission date</th>
+          <th>Buttons</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>pyasgn1</td>
+          <td>advanced lvl</td>
+          <td>100</td>
+          <td>2021-07-05</td>
+          <td>
+            <!-- ADD BUTTONS NEEDED -->
+            <button class="btn btn-warning " type="submit" id="edit-button" onclick="edit_func(this)">Edit</button>
+            <button class="btn btn-success " type="submit" id="end-button" onclick="done_func(this)">Done</button>
+            <button class="btn btn-danger " type="submit" id="del-button" onclick="del_func(this)">Delete</button>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+</body>
+
+</html>
+
+<script>
+
+  var del_button = document.getElementById("del-button");
+  var add_button = document.getElementById("add-button");
+  var form = document.getElementById('form');
+  var table = document.getElementById('table');
+  add_button.addEventListener("click", function () {
+    let row = document.getElementById('table').insertRow(-1);
+    let cell_title = row.insertCell(0);
+    let cell_descr = row.insertCell(1);
+    let cell_tot_mark = row.insertCell(2);
+    let cell_sub_date = row.insertCell(3);
+    let cell_button = row.insertCell(4);
+    let form = document.getElementById('form');
+    cell_title.innerHTML = form.elements[0].value;
+    cell_descr.innerHTML = form.elements[1].value;
+    cell_tot_mark.innerHTML = 'tr_' + form.elements[2].value;
+    cell_sub_date.innerHTML = form.elements[3].value;
+    cell_button.innerHTML = " <button class='btn btn-warning ' type='submit' id='edit-button' onclick='edit_func(this)'>Edit</button> \
+                              <button class='btn btn-success' type='submit' id='end-button' onclick='done_func(this)'>Done</button>\
+                              <button class='btn btn-danger ' type='submit' id='end-button' onclick='del_func(this)'>Delete</button>"
+
+  })
+
+  function edit_func(btn) {
+
+    btn.parentElement.parentElement.contentEditable = "true";
+    btn.parentElement.parentElement.style.backgroundColor = "rgba(255, 208, 0, 0.582)";
+    add_button.style.display = "none";
+    del_button.style.display = "none";
+    form.style.display = "none";
+  }
+
+  function done_func(btn) {
+
+    btn.parentElement.parentElement.contentEditable = "false";
+    btn.parentElement.parentElement.style.backgroundColor = "white";
+    add_button.style.display = "inline";
+    del_button.style.display = "inline";
+    form.style.display = "inline";
+  }
+
+  function del_func(btn) {
+    
+    var row = btn.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+  }
+
+</script>

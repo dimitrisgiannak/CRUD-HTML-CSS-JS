@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Student per Course
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+
+    .navbar {
+      padding-left: 300px;
+      width: 100%;
+      height: 105px;
+      background-color: black;
+    }
+
+    .container {
+      font-weight: bolder;
+      position: relative;
+    }
+
+    .container1 {
+      width: 32%;
+      position: absolute;
+      padding-left: 20em;
+    }
+    
+    .container2 {
+      width: 50%;
+      float: right;
+      padding-right: 20em;
+      padding-left: 10em;
+      margin-right: 10em;
+      padding-top: 26px;
+    }
+
+    #add-button {
+      font-weight: bold;
+      color:black;
+      background-color: #00bc95;
+    }
+  </style>
+
+
+</head>
+<body>
+  <!-- ADD NAVIGATION BAR -->
+  <nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="home.html" style = "color:red">PVDG</a>
+      ><a class="navbar-brand" href="admin.html" style = "color:red">Admin panel</a>
+    </div>
+   </nav>
+  <!-- ADD H2 TITLE -->
+  <div class="container">
+    <h2>DETAILS</h2>
+  </div>
+
+  <!-- ADD TRAINER PER COURSES FORM -->
+  <div class="container1">
+    <h2></h2>
+    <form id="form">
+      <div class="form-group">
+        <label for="mail">Identification:</label>
+        <input type="text" class="form-control" id="id" placeholder="Enter id" name="id" value="">
+      </div>
+      <div class="form-group">
+        <label for="cour_title">Course title:</label>
+        <input type="text" class="form-control" id="cour_title" placeholder="Enter course title" name="cour_title" value="">
+      </div>
+    </form>
+    <button class="btn btn-primary " type="submit" id="add-button">Add Trnr/Crs</button>
+  </div>
+  <br>
+  
+  <!-- ADD TRAINERS PER COURSE LIST -->
+  <div class="container2">
+    <table class="table table-bordered" id="table">
+      <thead id="head">
+        <tr>
+          <th style="text-align: center;">Trainer ID</th>
+          <th style="text-align: center;">Course title</th>
+          <th style="text-align: center;">Buttons</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>TW23043249</td>
+          <td>cb3py</td>
+          <td>
+            <!-- ADD BUTTONS NEEDED -->
+            <button class="btn btn-warning " type="submit" id="edit-button" onclick="edit_func(this)">Edit</button>
+            <button class="btn btn-success " type="submit" id="end-button" onclick="done_func(this)">Done</button>
+            <button class="btn btn-danger " type="submit" id="del-button" onclick="del_func(this)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>
+
+<script>
+
+  var del_button = document.getElementById("del-button");
+  var add_button = document.getElementById("add-button");
+  var form = document.getElementById('form');
+  var table = document.getElementById('table');
+  add_button.addEventListener("click", function () {
+    let row = document.getElementById('table').insertRow(-1);
+    let cell_ID = row.insertCell(0);
+    let cell_cour_title = row.insertCell(1);
+    let cell_button = row.insertCell(2);
+    let form = document.getElementById('form');
+    cell_ID.innerHTML = form.elements[0].value;
+    cell_cour_title.innerHTML = form.elements[1].value;
+    cell_button.innerHTML = " <button class='btn btn-warning ' type='submit' id='edit-button' onclick='edit_func(this)'>Edit</button> \
+                              <button class='btn btn-success' type='submit' id='end-button' onclick='done_func(this)'>Done</button>\
+                              <button class='btn btn-danger ' type='submit' id='end-button' onclick='del_func(this)'>Delete</button>"
+
+  })
+
+  function edit_func(btn) {
+
+    btn.parentElement.parentElement.contentEditable = "true";
+    btn.parentElement.parentElement.style.backgroundColor = "rgba(255, 208, 0, 0.582)";
+    add_button.style.display = "none";
+    del_button.style.display = "none";
+    form.style.display = "none";
+  }
+
+  function done_func(btn) {
+
+    btn.parentElement.parentElement.contentEditable = "false";
+    btn.parentElement.parentElement.style.backgroundColor = "white";
+    add_button.style.display = "inline";
+    del_button.style.display = "inline";
+    form.style.display = "inline";
+  }
+
+  function del_func(btn) {
+    
+    var row = btn.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+  }
+
+</script>
